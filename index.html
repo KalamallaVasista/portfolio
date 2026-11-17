@@ -1,0 +1,2180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>K Vasista Kumar Reddy — Data Analyst Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-orange: #ff5722;
+      --primary-orange-hover: #f44336;
+      --bg-dark: #0f1013;
+      --card-bg: #141518;
+      --text-muted: #9496a1;
+      --text-white: #ffffff;
+    }
+
+    html {
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      scroll-behavior: auto;
+    }
+
+    body {
+      background-color: transparent;
+      overflow-x: hidden;
+      min-height: 720vh;
+      position: relative;
+    }
+
+    /* Fixed full-screen canvas for scroll animation */
+    #canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: block;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Subtle cinematic dark overlay removed to keep all content directly on animation */
+    .canvas-overlay {
+      display: none;
+    }
+
+    /* Main interactive content wrapper */
+    .content-wrapper {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Ambient low-opacity orange-red glow points */
+    .ambient-glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(140px);
+      z-index: 1;
+      opacity: 0.22;
+      mix-blend-mode: screen;
+    }
+
+    .glow-hero {
+      top: 80px;
+      right: 4%;
+      width: 540px;
+      height: 540px;
+      background: radial-gradient(circle, rgba(255, 87, 34, 0.45) 0%, rgba(239, 68, 68, 0.18) 50%, transparent 75%);
+    }
+
+    .glow-mid {
+      top: 280vh;
+      left: -60px;
+      width: 580px;
+      height: 580px;
+      background: radial-gradient(circle, rgba(255, 69, 0, 0.4) 0%, rgba(220, 38, 38, 0.15) 50%, transparent 75%);
+    }
+
+    .glow-contact {
+      bottom: 15vh;
+      right: 6%;
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, rgba(255, 87, 34, 0.45) 0%, rgba(185, 28, 28, 0.15) 50%, transparent 75%);
+    }
+
+    /* Header / Navigation */
+    header {
+      width: 94%;
+      max-width: 1680px;
+      margin: 0 auto;
+      padding: 32px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-white);
+      text-decoration: none;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-white);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      opacity: 0.85;
+      transition: opacity 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      opacity: 1;
+    }
+
+    .btn-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--text-white);
+      color: #000;
+      padding: 6px 6px 6px 20px;
+      border-radius: 9999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-nav:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-nav .arrow-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--primary-orange);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      width: 94%;
+      max-width: 1680px;
+      margin: 0 auto;
+      min-height: calc(100vh - 80px);
+      padding: 40px 0 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hero-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: auto;
+      margin-bottom: auto;
+      padding: 40px 0;
+      gap: 40px;
+    }
+
+    .hero-title-box {
+      flex: 1.35;
+    }
+
+    .hero-sub {
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--text-white);
+      margin-bottom: 8px;
+      opacity: 0.9;
+    }
+
+    .hero-title {
+      font-size: clamp(2.8rem, 5.2vw, 5.2rem);
+      font-weight: 800;
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      color: var(--text-white);
+      text-transform: none;
+    }
+
+    .hero-quote-box {
+      max-width: 420px;
+      text-align: left;
+      padding-bottom: 12px;
+    }
+
+    .hero-quote-box h3 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 12px;
+      color: var(--text-white);
+    }
+
+    .hero-quote-box p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+
+    /* 4-column Service Metrics */
+    .hero-services {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      padding-top: 36px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .service-item .num {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary-orange);
+      margin-bottom: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    .service-item .label {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-white);
+    }
+
+    /* Brands Section */
+    .brands-container {
+      width: 94%;
+      max-width: 1680px;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    .brands-strip {
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 0;
+      padding: 44px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .brands-label {
+      font-size: 0.82rem;
+      line-height: 1.35;
+      font-weight: 500;
+      color: var(--text-muted);
+      max-width: 140px;
+    }
+
+    .brands-logos {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex: 1;
+      gap: 24px 32px;
+      flex-wrap: wrap;
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-white);
+      letter-spacing: -0.01em;
+    }
+
+    .brand-logo svg {
+      width: 22px;
+      height: 22px;
+      color: var(--text-white);
+    }
+
+    /* Behind The Designs Section */
+    .portfolio-section {
+      width: 94%;
+      max-width: 1680px;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    .portfolio-content {
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border: none;
+      border-radius: 0;
+      padding: 80px 0;
+    }
+
+    .portfolio-header {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 60px;
+      align-items: flex-start;
+      margin-bottom: 56px;
+    }
+
+    .section-tag {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary-orange);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .section-heading {
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--text-white);
+    }
+
+    .portfolio-header-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      padding-top: 12px;
+    }
+
+    .portfolio-desc {
+      font-size: 1.15rem;
+      line-height: 1.5;
+      color: #cfd1d8;
+      font-weight: 500;
+      margin-bottom: 28px;
+    }
+
+    .cta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .cta-subtext {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.35;
+      max-width: 180px;
+    }
+
+    .btn-orange {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--primary-orange);
+      color: var(--text-white);
+      padding: 8px 8px 8px 24px;
+      border-radius: 9999px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .btn-orange:hover {
+      background: var(--primary-orange-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-orange .arrow-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--primary-orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    /* Featured Project Cards */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+
+    .project-card {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      background: #141720;
+      aspect-ratio: 16 / 10;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+      transition: transform 0.35s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+      cursor: pointer;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255, 87, 34, 0.4);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), 0 0 30px rgba(255, 87, 34, 0.1);
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    .project-card:hover img {
+      transform: scale(1.03);
+    }
+
+    .project-card-meta {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      right: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .project-card-tag {
+      background: rgba(11, 13, 18, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 9999px;
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: 0.02em;
+    }
+
+    .project-card-arrow {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(11, 13, 18, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.05rem;
+      transition: background 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .project-card:hover .project-card-arrow {
+      background: var(--primary-orange);
+      border-color: var(--primary-orange);
+      transform: scale(1.08) rotate(45deg);
+    }
+
+    .project-card-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 36px 24px 20px;
+      background: linear-gradient(180deg, transparent 0%, rgba(10, 11, 15, 0.85) 55%, rgba(10, 11, 15, 0.96) 100%);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0.95;
+      transition: opacity 0.3s ease;
+    }
+
+    .project-card:hover .project-card-overlay {
+      opacity: 1;
+    }
+
+    .project-card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+
+    .project-card-subtitle {
+      font-size: 0.82rem;
+      color: #94a3b8;
+      line-height: 1.4;
+    }
+
+    .project-card-view-btn {
+      color: var(--primary-orange);
+      font-size: 0.85rem;
+      font-weight: 700;
+      white-space: nowrap;
+      margin-left: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-main {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .portfolio-header {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .hero-services {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .brands-strip {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .brands-logos {
+        flex-wrap: wrap;
+        width: 100%;
+      }
+      .contact-card {
+        padding: 40px 0;
+      }
+      .contact-form {
+        column-gap: 36px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 24px 0 0;
+      }
+      .nav-links {
+        display: none;
+      }
+      .hero-section {
+        padding: 40px 0;
+      }
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+      .project-card-overlay {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+      .project-card-view-btn {
+        margin-left: 0;
+      }
+      .portfolio-content {
+        padding: 40px 0;
+      }
+      .contact-header-wrap {
+        flex-direction: column;
+        gap: 24px;
+      }
+      .contact-form {
+        grid-template-columns: 1fr;
+        row-gap: 36px;
+      }
+      .contact-card {
+        padding: 40px 0;
+      }
+    }
+
+    /* Contact / Ready to Grow Section */
+    .contact-section {
+      width: 94%;
+      max-width: 1680px;
+      margin: 60px auto 100px;
+    }
+
+    /* Section Badges */
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 9999px;
+      padding: 6px 16px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #fff;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+
+    .section-badge .badge-dot {
+      color: #3b82f6;
+      font-size: 0.85rem;
+    }
+
+    /* Workflow Plan Section */
+    .workflow-section {
+      width: 94%;
+      max-width: 1680px;
+      margin: 80px auto 100px;
+      padding: 0;
+    }
+
+    .workflow-header {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 60px;
+      align-items: flex-start;
+      margin-bottom: 64px;
+    }
+
+    .workflow-title {
+      font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      color: var(--text-white);
+    }
+
+    .workflow-title em {
+      font-style: italic;
+      font-weight: 400;
+      color: #e2e8f0;
+    }
+
+    .workflow-desc {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+
+    .timeline-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      min-height: 320px;
+      position: relative;
+      border-left: 1px dashed rgba(255, 255, 255, 0.2);
+      border-right: 1px dashed rgba(255, 255, 255, 0.2);
+      margin-bottom: 48px;
+    }
+
+    .timeline-col {
+      border-right: 1px dashed rgba(255, 255, 255, 0.2);
+      position: relative;
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .timeline-col:last-child {
+      border-right: none;
+    }
+
+    .timeline-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 9999px;
+      padding: 10px 18px;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: #fff;
+      width: fit-content;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+      cursor: default;
+    }
+
+    .timeline-pill:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .timeline-pill .duration {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 9999px;
+      padding: 4px 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #fff;
+      margin-left: 6px;
+    }
+
+    .timeline-col.col-1 {
+      justify-content: flex-start;
+      padding-top: 36px;
+    }
+
+    .timeline-col.col-2 {
+      justify-content: center;
+    }
+
+    .timeline-col.col-3 {
+      justify-content: flex-end;
+      padding-bottom: 50px;
+    }
+
+    .timeline-col.col-4 {
+      justify-content: flex-end;
+      padding-bottom: 20px;
+    }
+
+    .workflow-footer-note {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      font-size: 0.95rem;
+      color: #94a3b8;
+      line-height: 1.5;
+      max-width: 950px;
+    }
+
+    .workflow-footer-note .bullet {
+      color: #3b82f6;
+      font-size: 1.1rem;
+    }
+
+    /* Responsive adjustments for new sections */
+    @media (max-width: 1024px) {
+      .workflow-header {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .timeline-container {
+        grid-template-columns: 1fr;
+        border-right: none;
+        gap: 20px;
+      }
+      .timeline-col {
+        border-right: none;
+        border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+        padding: 16px 0;
+      }
+    }
+
+    /* Stats Section */
+    .stats-section {
+      width: 94%;
+      max-width: 1680px;
+      margin: 100px auto 140px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 90px;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-top-meta {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    .stat-line {
+      width: 100%;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.2);
+      margin-bottom: 28px;
+    }
+
+    .stat-number {
+      font-size: clamp(4.5rem, 8.5vw, 7.8rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: #ffffff;
+      margin-bottom: 22px;
+      display: flex;
+      align-items: baseline;
+    }
+
+    .stat-unit {
+      font-size: clamp(2rem, 3.5vw, 3.4rem);
+      font-weight: 700;
+      margin-left: 8px;
+      color: #e2e8f0;
+    }
+
+    .stat-caption {
+      font-size: 1.15rem;
+      line-height: 1.5;
+      color: #cbd5e1;
+      max-width: 480px;
+    }
+
+    /* Algorithmic Problem Solving / LeetCode Section (Unified Portfolio Design) */
+    .leetcode-section {
+      width: 94%;
+      max-width: 1680px;
+      margin: 100px auto 130px;
+    }
+
+    .leetcode-header {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 60px;
+      align-items: flex-start;
+      margin-bottom: 48px;
+    }
+
+    .leetcode-title {
+      font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      color: var(--text-white);
+    }
+
+    .leetcode-desc {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+
+    .lc-widget-card {
+      background: rgba(18, 20, 26, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 28px;
+      padding: 44px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+      position: relative;
+    }
+
+    .lc-widget-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .lc-total-label {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .lc-total-value {
+      font-size: clamp(2.6rem, 5vw, 4.2rem);
+      font-weight: 800;
+      color: #38bdf8;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .lc-total-value .word-problems {
+      color: #93c5fd;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700;
+      margin-left: 8px;
+    }
+
+    .lc-beats-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 9999px;
+      padding: 10px 22px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #f1f5f9;
+    }
+
+    .lc-beats-badge .clapping-icon {
+      font-size: 1.2rem;
+    }
+
+    .lc-widget-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .lc-pills-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .lc-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      min-width: 140px;
+      justify-content: space-between;
+    }
+
+    .lc-pill .pill-tag {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .lc-pill.pill-easy .pill-tag {
+      color: #00b8a3;
+    }
+
+    .lc-pill.pill-med .pill-tag {
+      color: #ffc01e;
+    }
+
+    .lc-pill.pill-hard .pill-tag {
+      color: #ff375f;
+    }
+
+    .lc-pill .pill-num {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .btn-lc-profile {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--text-white);
+      color: #000;
+      padding: 10px 10px 10px 24px;
+      border-radius: 9999px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-lc-profile:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(255, 255, 255, 0.25);
+    }
+
+    .btn-lc-profile .arrow-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--primary-orange);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 1024px) {
+      .leetcode-header {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .lc-widget-card {
+        padding: 32px 24px;
+      }
+      .lc-widget-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .lc-widget-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .lc-pills-row {
+        width: 100%;
+      }
+      .lc-pill {
+        flex: 1;
+        min-width: 100px;
+      }
+    }
+
+    /* Person Showcase Section (Pure Background Visual with Typography) */
+    .person-showcase-section {
+      width: 94%;
+      max-width: 1680px;
+      margin: 110px auto 150px;
+      position: relative;
+    }
+
+    .showcase-inner {
+      position: relative;
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .showcase-bg-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    .showcase-bg-text .text-line {
+      font-size: clamp(4.5rem, 11vw, 11rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 0.88;
+      color: rgba(255, 255, 255, 0.95);
+      text-transform: uppercase;
+      text-align: center;
+      white-space: nowrap;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.85);
+    }
+
+    .card-pill-top,
+    .card-pill-bottom {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 9999px;
+      padding: 8px 24px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+      backdrop-filter: blur(12px);
+      z-index: 3;
+      letter-spacing: 0.04em;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .showcase-right-meta {
+      position: absolute;
+      right: 20px;
+      top: 24%;
+      max-width: 240px;
+      z-index: 6;
+      text-align: left;
+    }
+
+    .meta-year {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #ffffff;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .meta-text {
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 1024px) {
+      .stats-grid {
+        gap: 40px;
+      }
+      .showcase-right-meta {
+        position: static;
+        margin-top: 24px;
+        max-width: 100%;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .showcase-center-card {
+        width: 240px;
+      }
+    }
+
+    /* Why Interview This Candidate Section */
+    .why-interview-section {
+      width: 94%;
+      max-width: 1680px;
+      margin: 120px auto 160px;
+      position: relative;
+      background: transparent;
+    }
+
+    .why-interview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 40px;
+      margin-bottom: 56px;
+      flex-wrap: wrap;
+    }
+
+    .why-interview-title-wrap {
+      max-width: 760px;
+    }
+
+    .why-interview-heading {
+      font-size: clamp(2.5rem, 5vw, 4.4rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      color: var(--text-white);
+      margin-top: 14px;
+    }
+
+    .why-interview-heading .accent-text {
+      color: var(--primary-orange);
+      display: inline-block;
+    }
+
+    .why-interview-desc {
+      font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+      line-height: 1.6;
+      color: var(--text-muted);
+      max-width: 480px;
+      font-weight: 400;
+    }
+
+    /* 6-Card Grid: 3 columns, 2 rows */
+    .why-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-bottom: 48px;
+    }
+
+    .why-card {
+      background: rgba(18, 20, 26, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 38px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .why-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255, 87, 34, 0.5), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .why-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255, 87, 34, 0.35);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), 0 0 24px rgba(255, 87, 34, 0.08);
+    }
+
+    .why-card:hover::before {
+      opacity: 1;
+    }
+
+    .why-icon-box {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: rgba(255, 87, 34, 0.1);
+      border: 1px solid rgba(255, 87, 34, 0.25);
+      color: var(--primary-orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .why-card:hover .why-icon-box {
+      background: rgba(255, 87, 34, 0.18);
+      border-color: rgba(255, 87, 34, 0.5);
+    }
+
+    .why-card-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: #ffffff;
+      text-transform: uppercase;
+      line-height: 1.25;
+    }
+
+    .why-card-text {
+      font-size: 0.96rem;
+      line-height: 1.65;
+      color: #cbd5e1;
+      font-weight: 400;
+    }
+
+    /* Closing Quote Box */
+    .why-quote-box {
+      background: rgba(18, 20, 26, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 22px;
+      padding: 44px 52px;
+      position: relative;
+    }
+
+    .why-quote-text {
+      font-size: clamp(1.35rem, 2.6vw, 2.25rem);
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
+      color: #f8fafc;
+    }
+
+    .why-quote-text .accent-quote {
+      color: var(--primary-orange);
+      font-weight: 800;
+    }
+
+    @media (max-width: 1100px) {
+      .why-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .why-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .why-card {
+        padding: 30px 24px;
+      }
+      .why-quote-box {
+        padding: 32px 24px;
+      }
+      .why-interview-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+      }
+    }
+
+    .contact-card {
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border: none;
+      border-radius: 0;
+      padding: 80px 0;
+      box-shadow: none;
+    }
+
+    .contact-header-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 32px;
+      margin-bottom: 56px;
+    }
+
+    .contact-heading {
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -0.035em;
+      text-transform: uppercase;
+      color: var(--text-white);
+    }
+
+    .contact-heading .row-2 {
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .contact-heading .grow-word {
+      color: var(--text-white);
+    }
+
+    .contact-heading .scale-text {
+      font-size: clamp(1.8rem, 3.8vw, 3.6rem);
+      font-weight: 700;
+      color: #e2e4ea;
+      letter-spacing: -0.02em;
+    }
+
+    .talk-badge {
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 20px;
+      padding: 20px 26px;
+      max-width: 260px;
+      box-shadow: none;
+    }
+
+    .talk-badge h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--text-white);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    .talk-badge p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .contact-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 64px;
+      row-gap: 48px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .form-group label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--text-white);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .form-group input,
+    .form-group select {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 10px 0 14px;
+      color: #f1f2f6;
+      font-size: 1.05rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.25s ease;
+      width: 100%;
+    }
+
+    .form-group input::placeholder {
+      color: rgba(255, 255, 255, 0.35);
+      font-size: 1rem;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-bottom-color: var(--primary-orange);
+    }
+
+    .form-group select {
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+
+    .select-arrow {
+      position: absolute;
+      right: 0;
+      bottom: 14px;
+      pointer-events: none;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .form-group select option {
+      background: #141518;
+      color: #fff;
+    }
+
+    .form-submit-row {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 16px;
+    }
+
+    .btn-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--primary-orange);
+      color: var(--text-white);
+      border: none;
+      cursor: pointer;
+      padding: 12px 12px 12px 28px;
+      border-radius: 9999px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: inherit;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .btn-submit:hover {
+      background: var(--primary-orange-hover);
+      transform: translateY(-2px);
+    }
+
+    .btn-submit .arrow-circle {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--primary-orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Full-screen Canvas for Scroll Animation -->
+  <canvas id="canvas"></canvas>
+  <div class="canvas-overlay"></div>
+
+  <!-- Content Layer overlaying the animation -->
+  <div class="content-wrapper">
+
+    <!-- Subtle Low-Opacity Orange-Red Ambient Glows -->
+    <div class="ambient-glow-orb glow-hero"></div>
+    <div class="ambient-glow-orb glow-mid"></div>
+    <div class="ambient-glow-orb glow-contact"></div>
+
+    <!-- Header Navigation -->
+    <header>
+      <div class="logo"></div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="https://github.com/KalamallaVasista" target="_blank">GitHub</a></li>
+          <li><a href="https://linkedin.com/in/vasistakumar" target="_blank">LinkedIn</a></li>
+        </ul>
+        <a href="#contact" class="btn-nav">
+          Get in touch
+          <span class="arrow-circle">→</span>
+        </a>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+      <div class="hero-main">
+        <div class="hero-title-box">
+          <p class="hero-sub">Data Analyst & Analytics Engineer</p>
+          <h1 class="hero-title">Kalamalla Vasista<br>Kumar Reddy</h1>
+        </div>
+
+        <div class="hero-quote-box">
+          <h3>Turning raw data into clear business decisions.</h3>
+          <p>Specializing in SQL, Power BI, DAX, dbt, and Python with end-to-end expertise in fraud risk analytics, customer churn modeling, and KPI dashboards.</p>
+        </div>
+      </div>
+
+      <!-- 4 Service Highlights -->
+      <div class="hero-services">
+        <div class="service-item">
+          <span class="num">#01</span>
+          <span class="label">Data Modeling & dbt</span>
+        </div>
+        <div class="service-item">
+          <span class="num">#02</span>
+          <span class="label">Power BI & DAX Dashboards</span>
+        </div>
+        <div class="service-item">
+          <span class="num">#03</span>
+          <span class="label">SQL & Data Warehousing</span>
+        </div>
+        <div class="service-item">
+          <span class="num">#04</span>
+          <span class="label">Python Analytics & ML</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Brands Strip -->
+    <div class="brands-container">
+      <div class="brands-strip">
+        <div class="brands-label">
+          Core Analytics &<br>Data Stack
+        </div>
+        <div class="brands-logos">
+          <!-- Power BI -->
+          <div class="brand-logo">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <rect x="3" y="10" width="4" height="11" rx="1"/>
+              <rect x="10" y="6" width="4" height="15" rx="1"/>
+              <rect x="17" y="3" width="4" height="18" rx="1"/>
+            </svg>
+            Power BI & DAX
+          </div>
+
+          <!-- dbt -->
+          <div class="brand-logo">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="12,3 20,8 20,16 12,21 4,16 4,8"/>
+            </svg>
+            dbt (ELT)
+          </div>
+
+          <!-- Tableau -->
+          <div class="brand-logo">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M11 2h2v4h-2zm0 16h2v4h-2zm-9-9h4v2H2zm16 0h4v2h-4zM6 6h2v2H6zm10 0h2v2h-2zM6 16h2v2H6zm10 0h2v2h-2zM10.5 8h3v8h-3zm-2.5 2.5h8v3h-8z"/>
+            </svg>
+            Tableau
+          </div>
+
+          <!-- Excel -->
+          <div class="brand-logo">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M21.17 3.25Q21.5 3.25 21.75 3.5t.25.75v15.5q0 .5-.25.75t-.58.25h-6.17v-2h5v-14h-5v-2zM14 2v20L2 19.5V4.5zm-3.5 12.35l-1.9-3.35 1.8-3.35H8.75l-1.15 2.4-1.2-2.4H4.75l1.8 3.35-1.9 3.35h1.7l1.25-2.5 1.25 2.5z"/>
+            </svg>
+            Excel
+          </div>
+
+          <!-- SQL -->
+          <div class="brand-logo">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <ellipse cx="12" cy="6" rx="8" ry="3"/>
+              <path d="M4 6v6c0 1.66 3.58 3 8 3s8-1.34 8-3V6"/>
+              <path d="M4 12v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/>
+            </svg>
+            SQL & MySQL
+          </div>
+
+          <!-- Python -->
+          <div class="brand-logo">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C8.5 2 8 3.5 8 5v2h8V6c0-1.5-.5-4-4-4zm-4 7H4v4c0 3.5 1.5 4 4 4h2v-8zm8 0v8h2c2.5 0 4-.5 4-4V9h-6zm-6 10v3c0 1.5.5 2 4 2s4-.5 4-2v-3h-8z"/>
+            </svg>
+            Python & Pandas
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Behind the Analytics & Project Cards -->
+    <section class="portfolio-section" id="projects">
+      <div class="portfolio-content">
+        <div class="portfolio-header">
+          <div>
+            <span class="section-tag">Featured Analytics Work</span>
+            <h2 class="section-heading">Data Models & KPI Dashboards That Drive Action</h2>
+          </div>
+
+          <div class="portfolio-header-right">
+            <p class="portfolio-desc">
+              End-to-end data pipelines from 50,000+ synthetic B2B transactions to dbt dimensional warehousing, DAX What-If parameters, and churn risk rosters.
+            </p>
+            <div class="cta-row">
+              <p class="cta-subtext">Bangalore, India • Alliance University '26 (CGPA 8.9)</p>
+              <a href="projects.html" class="btn-orange">
+                Explore all projects
+                <span class="arrow-circle">→</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 Featured Dashboard Showcase Cards -->
+        <div class="cards-grid">
+          <!-- Project 1: Fraud Risk Engine -->
+          <div class="project-card" onclick="window.location.href='projects.html'">
+            <div class="project-card-meta">
+              <span class="project-card-tag">Python • MySQL • dbt • Power BI</span>
+              <span class="project-card-arrow">↗</span>
+            </div>
+            <img src="images/dashboard-fraud-risk.jpg?v=2" alt="B2B Payment Fraud & Chargeback Command Center" loading="lazy">
+            <div class="project-card-overlay">
+              <div>
+                <div class="project-card-title">B2B Payment Fraud & Chargeback Command Center</div>
+                <div class="project-card-subtitle">What-If DAX simulation • False positive KPI tradeoff • 50K synthesized records</div>
+              </div>
+              <span class="project-card-view-btn">View Project →</span>
+            </div>
+          </div>
+
+          <!-- Project 2: Revenue Recovery Churn Engine -->
+          <div class="project-card" onclick="window.location.href='projects.html'">
+            <div class="project-card-meta">
+              <span class="project-card-tag">SQL • dbt • Power BI • DAX</span>
+              <span class="project-card-arrow">↗</span>
+            </div>
+            <img src="images/dashboard-churn-recovery.jpg?v=2" alt="Revenue Recovery & Churn Risk Engine" loading="lazy">
+            <div class="project-card-overlay">
+              <div>
+                <div class="project-card-title">Revenue Recovery & Churn Risk Engine</div>
+                <div class="project-card-subtitle">Proactive SaaS churn risk scoring • What-If revenue simulator • Customer recovery queue</div>
+              </div>
+              <span class="project-card-view-btn">View Project →</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Workflow Plan Section -->
+    <section class="workflow-section" id="workflow">
+      <div class="section-badge">
+        <span class="badge-dot">✦</span> END-TO-END ANALYTICS PIPELINE
+      </div>
+      <div class="workflow-header">
+        <h2 class="workflow-title">
+          A structured <em>4-stage</em> workflow<br>from raw data to executive decisions.
+        </h2>
+        <p class="workflow-desc">
+          Transforming complex, unorganized transactional datasets into hardened dimensional fact tables and interactive BI decision rosters. Combining SQL/dbt data transformation with dynamic DAX What-If simulation and data storytelling.
+        </p>
+      </div>
+
+      <!-- 4-Column Timeline Track -->
+      <div class="timeline-container">
+        <!-- Col 1 -->
+        <div class="timeline-col col-1">
+          <div class="timeline-pill">
+            <span>🔍</span> Data Extraction & Ingestion
+            <span class="duration">Stage 1</span>
+          </div>
+          <div class="timeline-pill">
+            <span>🧹</span> Cleaning & EDA (Python/SQL)
+            <span class="duration">Stage 1</span>
+          </div>
+        </div>
+
+        <!-- Col 2 -->
+        <div class="timeline-col col-2">
+          <div class="timeline-pill">
+            <span>🏗️</span> Dimensional Modeling (dbt)
+            <span class="duration">Stage 2</span>
+          </div>
+        </div>
+
+        <!-- Col 3 -->
+        <div class="timeline-col col-3">
+          <div class="timeline-pill">
+            <span>⚡</span> DAX What-If Parameters
+            <span class="duration">Stage 3</span>
+          </div>
+          <div class="timeline-pill">
+            <span>🎯</span> Rule-Based Churn/Fraud Scoring
+            <span class="duration">Stage 3</span>
+          </div>
+        </div>
+
+        <!-- Col 4 -->
+        <div class="timeline-col col-4">
+          <div class="timeline-pill">
+            <span>📊</span> Executive Power BI Dashboard
+            <span class="duration">Stage 4</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Note -->
+      <div class="workflow-footer-note">
+        <span class="bullet">▪</span>
+        <span>Engineered 50,000 synthetic transaction records with AI risk scores, automated staging-to-fact ELT pipelines, and real-time What-If sensitivity calculations.</span>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section" id="stats">
+      <div class="stats-grid">
+        <!-- Stat 1 -->
+        <div class="stat-item">
+          <div class="stat-top-meta">Synthetically Engineered Data</div>
+          <div class="stat-line"></div>
+          <div class="stat-number">50K+</div>
+          <p class="stat-caption">
+            B2B transaction records generated in Python with fraud flags and simulated AI risk scores to mirror a live payments environment.
+          </p>
+        </div>
+
+        <!-- Stat 2 -->
+        <div class="stat-item">
+          <div class="stat-top-meta">Academic Excellence</div>
+          <div class="stat-line"></div>
+          <div class="stat-number">
+            8.9<span class="stat-unit">CGPA</span>
+          </div>
+          <p class="stat-caption">
+            B.Tech in Computer Science and Engineering (AI/ML) at Alliance University, Bangalore (2022 - 2026).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Algorithmic Problem Solving / LeetCode Section -->
+    <section class="leetcode-section" id="problem-solving">
+      <div class="section-badge">
+        <span class="badge-dot">✦</span> ALGORITHMIC PROBLEM SOLVING
+      </div>
+      <div class="leetcode-header">
+        <h2 class="leetcode-title">
+          Data Structures & Problem Solving in Python
+        </h2>
+        <p class="leetcode-desc">
+          Continuous algorithmic practice on LeetCode sharpening computational efficiency, dynamic programming, and data structure implementations alongside data analytics.
+        </p>
+      </div>
+
+      <div class="lc-widget-card">
+        <!-- Top Row -->
+        <div class="lc-widget-top">
+          <div>
+            <p class="lc-total-label">Total Solved</p>
+            <div class="lc-total-value">
+              60 <span class="word-problems">Problems</span>
+            </div>
+          </div>
+
+          <div class="lc-beats-badge">
+            <span class="clapping-icon">👏</span> Beats 67%
+          </div>
+        </div>
+
+        <!-- Bottom Row: 3 Pills & Profile Link -->
+        <div class="lc-widget-bottom">
+          <div class="lc-pills-row">
+            <!-- Easy -->
+            <div class="lc-pill pill-easy">
+              <span class="pill-tag">Easy</span>
+              <span class="pill-num">38</span>
+            </div>
+
+            <!-- Med -->
+            <div class="lc-pill pill-med">
+              <span class="pill-tag">Med.</span>
+              <span class="pill-num">19</span>
+            </div>
+
+            <!-- Hard -->
+            <div class="lc-pill pill-hard">
+              <span class="pill-tag">Hard</span>
+              <span class="pill-num">3</span>
+            </div>
+          </div>
+
+          <a href="https://leetcode.com/problemset/" target="_blank" class="btn-lc-profile">
+            LeetCode Profile
+            <span class="arrow-circle">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Data Analyst Showcase Section (Pure Background Visual with Typography) -->
+    <section class="person-showcase-section" id="studio">
+      <div class="showcase-inner">
+        <!-- Top Skill Pill -->
+        <div class="card-pill-top">+ SQL & dbt</div>
+
+        <!-- Two lines of giant typography directly on the scroll background visual -->
+        <div class="showcase-bg-text">
+          <span class="text-line">DATA</span>
+          <span class="text-line">ANALYST</span>
+        </div>
+
+        <!-- Bottom Skill Pill -->
+        <div class="card-pill-bottom">+ Power BI & DAX</div>
+
+        <!-- Right Side Meta Info -->
+        <div class="showcase-right-meta">
+          <span class="meta-year">BANGALORE, INDIA</span>
+          <p class="meta-text">
+            K Vasista Kumar Reddy — Entry-level Data Analyst skilled in building end-to-end data models, ELT pipelines, and What-If financial KPI dashboards.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Interview This Candidate Section -->
+    <section class="why-interview-section" id="why-interview">
+      <div class="section-badge">
+        <span class="badge-dot" style="color: var(--primary-orange);">✦</span> 08 / WHAT YOUR TEAM GETS
+      </div>
+
+      <div class="why-interview-header">
+        <div class="why-interview-title-wrap">
+          <h2 class="why-interview-heading">
+            Why interview <span class="accent-text">this candidate?</span>
+          </h2>
+        </div>
+        <p class="why-interview-desc">
+          The honest answer: hands-on project work, a practical analytics stack and fast learning, stated without filler.
+        </p>
+      </div>
+
+      <!-- 6 Cards Grid: 2 rows x 3 columns -->
+      <div class="why-cards-grid">
+        <!-- Card 1: BUILD -->
+        <div class="why-card">
+          <div class="why-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 12l-8.5 8.5c-.83.83-2.17.83-3 0 0 0 0 0 0 0a2.12 2.12 0 0 1 0-3L12 9"/>
+              <path d="M17.64 4.36a3 3 0 0 0-4.24 0l-1.4 1.4 4.24 4.24 1.4-1.4a3 3 0 0 0 0-4.24z"/>
+            </svg>
+          </div>
+          <h3 class="why-card-title">BUILD</h3>
+          <p class="why-card-text">
+            Two end-to-end analytics projects, from a SQL warehouse and dbt models to Power BI dashboards.
+          </p>
+        </div>
+
+        <!-- Card 2: AUTOMATE -->
+        <div class="why-card">
+          <div class="why-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="6" y1="3" x2="6" y2="15"></line>
+              <circle cx="18" cy="6" r="3"></circle>
+              <circle cx="6" cy="18" r="3"></circle>
+              <path d="M18 9a9 9 0 0 1-9 9"></path>
+            </svg>
+          </div>
+          <h3 class="why-card-title">AUTOMATE</h3>
+          <p class="why-card-text">
+            Repeatable pipelines: Python-generated data, dbt models from staging to fact tables, all versioned on GitHub.
+          </p>
+        </div>
+
+        <!-- Card 3: DECIDE -->
+        <div class="why-card">
+          <div class="why-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="4" y1="21" x2="4" y2="14"></line>
+              <line x1="4" y1="10" x2="4" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12" y2="3"></line>
+              <line x1="20" y1="21" x2="20" y2="16"></line>
+              <line x1="20" y1="12" x2="20" y2="3"></line>
+              <line x1="1" y1="14" x2="7" y2="14"></line>
+              <line x1="9" y1="8" x2="15" y2="8"></line>
+              <line x1="17" y1="16" x2="23" y2="16"></line>
+            </svg>
+          </div>
+          <h3 class="why-card-title">DECIDE</h3>
+          <p class="why-card-text">
+            Risk scores and a DAX What-If threshold that show the trade-off between Revenue Lost and False Positive Rate.
+          </p>
+        </div>
+
+        <!-- Card 4: LEARN -->
+        <div class="why-card">
+          <div class="why-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+              <polyline points="17 6 23 6 23 12"></polyline>
+            </svg>
+          </div>
+          <h3 class="why-card-title">LEARN</h3>
+          <p class="why-card-text">
+            Completed the ExcelR data analyst course, with IBM BI Essentials and Power BI Fundamentals certificates, and building more projects next.
+          </p>
+        </div>
+
+        <!-- Card 5: ML & CODING FOUNDATION -->
+        <div class="why-card">
+          <div class="why-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.04z"/>
+              <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.04z"/>
+            </svg>
+          </div>
+          <h3 class="why-card-title">ML & CODING FOUNDATION</h3>
+          <p class="why-card-text">
+            B.Tech in CSE (AI/ML), CGPA 8.9, plus Python and IBM Machine Learning with Python. This gives me context for model-driven metrics like risk scores.
+          </p>
+        </div>
+
+        <!-- Card 6: COMMUNICATE -->
+        <div class="why-card">
+          <div class="why-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </div>
+          <h3 class="why-card-title">COMMUNICATE</h3>
+          <p class="why-card-text">
+            Dashboards built around one decision, with outputs like the Risk Roster and Customer Recovery Queue that turn analysis into action lists for teams.
+          </p>
+        </div>
+      </div>
+
+      <!-- Closing Quote Box -->
+      <div class="why-quote-box">
+        <p class="why-quote-text">
+          &ldquo;I don't just build dashboards. <span class="accent-quote">I build the pipeline behind them, from raw data to the decision.</span>&rdquo;
+        </p>
+      </div>
+    </section>
+
+    <!-- Ready to Work Together / Contact Section -->
+    <section class="contact-section" id="contact">
+      <div class="contact-card">
+        <div class="contact-header-wrap">
+          <h2 class="contact-heading">
+            LET'S BUILD<br>
+            <div class="row-2">
+              <span class="grow-word">IMPACTFUL</span>
+              <span class="scale-text">& SCALABLE DATA<br>SOLUTIONS.</span>
+            </div>
+          </h2>
+
+          <div class="talk-badge">
+            <h4>LET'S TALK</h4>
+            <p>kalamallavasi@gmail.com<br>+91 7981182480</p>
+          </div>
+        </div>
+
+        <form class="contact-form" onsubmit="event.preventDefault(); alert('Thank you, Vasista has received your message!');">
+          <!-- Col 1, Row 1 -->
+          <div class="form-group">
+            <label for="name">YOUR NAME*</label>
+            <input type="text" id="name" name="name" placeholder="e.g. Sarah Jenkins" required>
+          </div>
+
+          <!-- Col 2, Row 1 -->
+          <div class="form-group">
+            <label for="phone">YOUR PHONE OR LINKEDIN*</label>
+            <input type="text" id="phone" name="phone" placeholder="e.g. +91 9876543210 or linkedin.com/in/..." required>
+          </div>
+
+          <!-- Col 1, Row 2 -->
+          <div class="form-group">
+            <label for="email">YOUR WORK EMAIL*</label>
+            <input type="email" id="email" name="email" placeholder="sarah@company.com" required>
+          </div>
+
+          <!-- Col 2, Row 2 -->
+          <div class="form-group">
+            <label for="role-type">OPPORTUNITY / PROJECT TYPE</label>
+            <select id="role-type" name="role_type">
+              <option value="fulltime-analyst">Full-Time Data Analyst / BI Engineer</option>
+              <option value="analytics-intern">Analytics & Data Modeling Internship</option>
+              <option value="bi-dashboarding">Power BI / dbt Dashboard Consulting</option>
+              <option value="data-engineering">ELT & SQL Data Warehouse Setup</option>
+            </select>
+            <span class="select-arrow">⌄</span>
+          </div>
+
+          <!-- Col 1, Row 3 -->
+          <div class="form-group">
+            <label for="stack-interest">PRIMARY DATA STACK IN FOCUS</label>
+            <select id="stack-interest" name="stack_interest">
+              <option value="powerbi-dbt">Power BI, DAX & dbt Modeling</option>
+              <option value="sql-warehouse">SQL, MySQL & Dimensional Data Warehousing</option>
+              <option value="python-analytics">Python (Pandas, Scikit-learn, EDA)</option>
+              <option value="end-to-end">End-to-End Analytics & KPI Storytelling</option>
+            </select>
+            <span class="select-arrow">⌄</span>
+          </div>
+
+          <!-- Col 2, Row 3 -->
+          <div class="form-group">
+            <label for="timeline">ESTIMATED START TIMELINE</label>
+            <select id="timeline" name="timeline">
+              <option value="immediate">Immediate / Next 2-4 Weeks</option>
+              <option value="1-month">Within 1-2 Months</option>
+              <option value="q1-2026">2026 Graduating Cohort</option>
+            </select>
+            <span class="select-arrow">⌄</span>
+          </div>
+
+          <!-- Submit Button Row -->
+          <div class="form-submit-row">
+            <button type="submit" class="btn-submit">
+              Send Message
+              <span class="arrow-circle">→</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Bottom Spacing for Complete Animation Playthrough -->
+    <div style="height: 25vh;"></div>
+  </div>
+
+  <!-- Canvas Scroll Animation Engine -->
+  <script>
+    const TOTAL_FRAMES = 300;
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const images = new Array(TOTAL_FRAMES);
+    let targetFrame = 0;
+    let currentFrame = 0;
+    let lastDrawnIndex = -1;
+
+    // Build frame URL (001.jpg -> 300.jpg)
+    function getFrameSrc(index) {
+      const frameNum = String(index + 1).padStart(3, '0');
+      return `images/ezgif-frame-${frameNum}.jpg`;
+    }
+
+    // High DPI canvas resizing
+    function resizeCanvas() {
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = Math.round(window.innerWidth * dpr);
+      canvas.height = Math.round(window.innerHeight * dpr);
+      render(true);
+    }
+
+    // Preload image sequence
+    function preloadImages() {
+      for (let i = 0; i < TOTAL_FRAMES; i++) {
+        const img = new Image();
+        img.src = getFrameSrc(i);
+        img.onload = () => {
+          images[i] = img;
+          if (i === 0 && lastDrawnIndex === -1) {
+            render(true);
+          }
+        };
+      }
+    }
+
+    // Calculate current scroll progress across the page height
+    function getScrollProgress() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+      const maxScroll = (document.documentElement.scrollHeight || document.body.scrollHeight) - window.innerHeight;
+      if (maxScroll <= 0) return 0;
+      return Math.min(1, Math.max(0, scrollTop / maxScroll));
+    }
+
+    // Draw active image frame centered with 'cover' aspect ratio
+    function render(force = false) {
+      const targetIndex = Math.round(currentFrame);
+      if (!force && targetIndex === lastDrawnIndex) return;
+
+      // Nearest-loaded frame fallback for instant response
+      let img = images[targetIndex];
+      if (!img || !img.complete || img.naturalWidth === 0) {
+        for (let offset = 1; offset < TOTAL_FRAMES; offset++) {
+          const prev = targetIndex - offset;
+          const next = targetIndex + offset;
+          if (prev >= 0 && images[prev]?.complete && images[prev]?.naturalWidth > 0) {
+            img = images[prev];
+            break;
+          }
+          if (next < TOTAL_FRAMES && images[next]?.complete && images[next]?.naturalWidth > 0) {
+            img = images[next];
+            break;
+          }
+        }
+      }
+
+      if (!img || !img.complete || img.naturalWidth === 0) return;
+
+      const cw = canvas.width;
+      const ch = canvas.height;
+      const iw = img.naturalWidth;
+      const ih = img.naturalHeight;
+
+      // Object-fit: cover
+      const ratio = Math.max(cw / iw, ch / ih);
+      const nw = iw * ratio;
+      const nh = ih * ratio;
+      const cx = (cw - nw) * 0.5;
+      const cy = (ch - nh) * 0.5;
+
+      ctx.clearRect(0, 0, cw, ch);
+      ctx.drawImage(img, cx, cy, nw, nh);
+      lastDrawnIndex = targetIndex;
+    }
+
+    // Smooth animation loop
+    function animate() {
+      const progress = getScrollProgress();
+      targetFrame = progress * (TOTAL_FRAMES - 1);
+
+      // Smooth inertia damping (LERP)
+      currentFrame += (targetFrame - currentFrame) * 0.15;
+
+      render();
+      requestAnimationFrame(animate);
+    }
+
+    // Event listeners
+    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('orientationchange', resizeCanvas);
+
+    // Initialize
+    resizeCanvas();
+    preloadImages();
+    requestAnimationFrame(animate);
+  </script>
+</body>
+</html>

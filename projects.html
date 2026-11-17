@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>K Vasista Kumar Reddy — Projects & Technical Case Studies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-orange: #ff5722;
+      --primary-orange-hover: #f44336;
+      --bg-dark: #0b0d12;
+      --card-bg: rgba(22, 24, 30, 0.65);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --text-muted: #94a3b8;
+      --text-white: #ffffff;
+    }
+
+    html {
+      color: var(--text-white);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    /* Luxurious dark shade background with low-opacity orange-red atmospheric gradients */
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 88% 12%, rgba(255, 75, 43, 0.15) 0%, rgba(220, 38, 38, 0.04) 35%, transparent 60%),
+        radial-gradient(circle at 8% 42%, rgba(255, 87, 34, 0.12) 0%, rgba(220, 38, 38, 0.03) 40%, transparent 65%),
+        radial-gradient(circle at 92% 72%, rgba(255, 69, 0, 0.14) 0%, rgba(185, 28, 28, 0.04) 35%, transparent 60%),
+        radial-gradient(circle at 25% 95%, rgba(255, 87, 34, 0.11) 0%, rgba(239, 68, 68, 0.03) 30%, transparent 55%),
+        radial-gradient(circle at 18% 10%, rgba(30, 41, 59, 0.45) 0%, transparent 45%),
+        radial-gradient(circle at 50% 65%, rgba(15, 23, 42, 0.5) 0%, transparent 55%),
+        linear-gradient(180deg, #0d0f14 0%, #08090c 100%);
+      background-attachment: fixed;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text-white);
+      position: relative;
+    }
+
+    /* Ambient atmospheric glow orbs */
+    .ambient-glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(140px);
+      z-index: 0;
+    }
+
+    .glow-orb-1 {
+      top: 120px;
+      right: 6%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255, 87, 34, 0.22) 0%, rgba(239, 68, 68, 0.08) 50%, transparent 75%);
+    }
+
+    .glow-orb-2 {
+      top: 1100px;
+      left: -80px;
+      width: 580px;
+      height: 580px;
+      background: radial-gradient(circle, rgba(255, 69, 0, 0.18) 0%, rgba(220, 38, 38, 0.06) 50%, transparent 75%);
+    }
+
+    .glow-orb-3 {
+      top: 2200px;
+      right: -60px;
+      width: 620px;
+      height: 620px;
+      background: radial-gradient(circle, rgba(255, 87, 34, 0.19) 0%, rgba(185, 28, 28, 0.07) 50%, transparent 75%);
+    }
+
+    .glow-orb-4 {
+      bottom: 160px;
+      left: 15%;
+      width: 520px;
+      height: 520px;
+      background: radial-gradient(circle, rgba(255, 107, 0, 0.16) 0%, rgba(239, 68, 68, 0.05) 50%, transparent 75%);
+    }
+
+    /* Consistent container width */
+    .container {
+      width: 94%;
+      max-width: 1680px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Header Navigation */
+    header {
+      width: 94%;
+      max-width: 1680px;
+      margin: 0 auto;
+      padding: 32px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .logo {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-white);
+      text-decoration: none;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-white);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      opacity: 0.75;
+      transition: opacity 0.2s ease, color 0.2s ease;
+      position: relative;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      opacity: 1;
+      color: var(--text-white);
+    }
+
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--primary-orange);
+      border-radius: 9999px;
+    }
+
+    .btn-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--text-white);
+      color: #000;
+      padding: 6px 6px 6px 20px;
+      border-radius: 9999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-nav:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-nav .arrow-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--primary-orange);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+    }
+
+    /* Section Badge */
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 9999px;
+      padding: 6px 16px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #fff;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+
+    .section-badge .badge-dot {
+      color: var(--primary-orange);
+    }
+
+    /* SECTION 1: HERO */
+    .projects-hero {
+      padding: 80px 0 60px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 60px;
+      align-items: flex-end;
+      margin-bottom: 60px;
+    }
+
+    .hero-title {
+      font-size: clamp(3.2rem, 6vw, 5.2rem);
+      font-weight: 800;
+      line-height: 0.98;
+      letter-spacing: -0.035em;
+      color: var(--text-white);
+    }
+
+    .hero-subtext-box {
+      padding-bottom: 8px;
+    }
+
+    .hero-desc {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: #cbd5e1;
+      font-weight: 400;
+      margin-bottom: 24px;
+    }
+
+    .stats-ticker-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      padding: 32px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .ticker-item .num {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--text-white);
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .ticker-item .label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+
+    /* SECTION 2: FEATURED CASE STUDIES */
+    .featured-section {
+      padding: 100px 0 80px;
+    }
+
+    .section-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 48px;
+    }
+
+    .section-num-tag {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary-orange);
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+      display: block;
+      text-transform: uppercase;
+    }
+
+    .section-main-heading {
+      font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      color: var(--text-white);
+    }
+
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 36px;
+    }
+
+    .featured-card {
+      position: relative;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .featured-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255, 255, 255, 0.35);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 87, 34, 0.08);
+    }
+
+    .card-img-wrap {
+      width: 100%;
+      aspect-ratio: 16 / 9.2;
+      overflow: hidden;
+      position: relative;
+      background: #0f1117;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    .featured-card:hover .card-img-wrap img {
+      transform: scale(1.06);
+    }
+
+    .card-meta-bar {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 2;
+    }
+
+    .card-pill-tag {
+      background: rgba(11, 13, 18, 0.88);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 9999px;
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .card-arrow-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(11, 13, 18, 0.88);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.1rem;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .featured-card:hover .card-arrow-btn {
+      background: var(--primary-orange);
+      border-color: var(--primary-orange);
+      transform: scale(1.08) rotate(45deg);
+    }
+
+    .card-body {
+      padding: 32px 32px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+    }
+
+    .card-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-white);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .card-desc {
+      font-size: 0.98rem;
+      line-height: 1.6;
+      color: #94a3b8;
+      margin-bottom: 24px;
+    }
+
+    .card-bullets {
+      list-style: none;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .card-bullets li {
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      line-height: 1.5;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .card-bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--primary-orange);
+      font-weight: 700;
+    }
+
+    .card-foot-tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .foot-tag {
+      font-size: 0.78rem;
+      color: #cbd5e1;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-weight: 500;
+    }
+
+    .github-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 18px;
+      color: var(--text-white);
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      width: fit-content;
+      border-bottom: 1px solid var(--primary-orange);
+      padding-bottom: 2px;
+      transition: color 0.2s ease;
+    }
+
+    .github-link-btn:hover {
+      color: var(--primary-orange);
+    }
+
+    /* SECTION 3: SKILLS MATRIX & DISCIPLINE FILTER */
+    .archive-section {
+      padding: 80px 0 100px;
+    }
+
+    .archive-filter-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: var(--text-muted);
+      padding: 8px 20px;
+      border-radius: 9999px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn:hover {
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.35);
+    }
+
+    .filter-btn.active {
+      background: var(--text-white);
+      color: #000;
+      border-color: var(--text-white);
+    }
+
+    .archive-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+    }
+
+    .archive-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 22px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .archive-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .archive-card-body {
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .archive-card-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--primary-orange);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .archive-card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .archive-card-sub {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    .skill-pills-wrap {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+
+    .skill-tag {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      color: #cbd5e1;
+    }
+
+    /* SECTION 4: EDUCATION & CERTIFICATIONS */
+    .impact-section {
+      padding: 80px 0 120px;
+    }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 48px;
+    }
+
+    .impact-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 26px;
+      padding: 40px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .impact-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .impact-stat-highlight {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--primary-orange);
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .impact-card h4 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .impact-quote {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #cbd5e1;
+      margin-bottom: 24px;
+    }
+
+    .impact-author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+    }
+
+    .author-info h5 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .author-info span {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .verify-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #38bdf8;
+      font-size: 0.8rem;
+      text-decoration: none;
+      margin-top: 8px;
+    }
+
+    .verify-badge:hover {
+      text-decoration: underline;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(10, 11, 15, 0.85);
+      padding: 90px 0 40px;
+    }
+
+    .footer-cta-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 70px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 50px;
+      gap: 40px;
+    }
+
+    .footer-cta-title {
+      font-size: clamp(2rem, 4.5vw, 3.6rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+    }
+
+    .footer-links-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-brand .logo {
+      font-size: 1.25rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .footer-nav {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .footer-nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s ease;
+    }
+
+    .footer-nav a:hover {
+      color: #fff;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 16px;
+    }
+
+    .social-pill {
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 9999px;
+      padding: 6px 16px;
+      transition: all 0.2s ease;
+    }
+
+    .social-pill:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+
+    .footer-bottom {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .archive-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .impact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .featured-grid {
+        grid-template-columns: 1fr;
+      }
+      .stats-ticker-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+      .footer-cta-box {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .archive-grid {
+        grid-template-columns: 1fr;
+      }
+      .stats-ticker-row {
+        grid-template-columns: 1fr;
+      }
+      .footer-links-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Low-Opacity Orange-Red Atmospheric Glow Orbs -->
+  <div class="ambient-glow-orb glow-orb-1"></div>
+  <div class="ambient-glow-orb glow-orb-2"></div>
+  <div class="ambient-glow-orb glow-orb-3"></div>
+  <div class="ambient-glow-orb glow-orb-4"></div>
+
+  <!-- Header Navigation -->
+  <header>
+    <div class="logo"></div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html" class="active">Projects</a></li>
+        <li><a href="https://github.com/KalamallaVasista" target="_blank">GitHub</a></li>
+        <li><a href="https://linkedin.com/in/vasistakumar" target="_blank">LinkedIn</a></li>
+      </ul>
+      <a href="index.html#contact" class="btn-nav">
+        Get in touch
+        <span class="arrow-circle">→</span>
+      </a>
+    </nav>
+  </header>
+
+  <!-- ============================================================
+       SECTION 1: HERO TITLE & SUBTEXT
+       ============================================================ -->
+  <section class="projects-hero">
+    <div class="container">
+      <div class="section-badge">
+        <span class="badge-dot">✦</span> DATA ANALYTICS & BI CASE STUDIES
+      </div>
+
+      <div class="hero-grid">
+        <h1 class="hero-title">
+          Data Modeling, Fraud Analytics & KPI Engines.
+        </h1>
+
+        <div class="hero-subtext-box">
+          <p class="hero-desc">
+            End-to-end data pipelines and decision dashboards built by K Vasista Kumar Reddy. Transforming raw transactional records into dimensional fact tables (dbt/MySQL), calculating What-If financial sensitivities (DAX), and isolating customer churn risks.
+          </p>
+        </div>
+      </div>
+
+      <!-- Quick Impact Ticker -->
+      <div class="stats-ticker-row">
+        <div class="ticker-item">
+          <span class="num">50,000+</span>
+          <span class="label">B2B Records Modeled</span>
+        </div>
+        <div class="ticker-item">
+          <span class="num">8.9</span>
+          <span class="label">Academic CGPA (AI/ML)</span>
+        </div>
+        <div class="ticker-item">
+          <span class="num">3</span>
+          <span class="label">Industry Certifications</span>
+        </div>
+        <div class="ticker-item">
+          <span class="num">100%</span>
+          <span class="label">Reproducible Code on GitHub</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 2: FEATURED / FLAGSHIP CASE STUDIES
+       ============================================================ -->
+  <section class="featured-section">
+    <div class="container">
+      <div class="section-header-row">
+        <div>
+          <span class="section-num-tag">// 01 FEATURED PROJECTS</span>
+          <h2 class="section-main-heading">End-to-End Analytics & Decision Engines</h2>
+        </div>
+      </div>
+
+      <div class="featured-grid">
+        <!-- Project 1 -->
+        <article class="featured-card">
+          <div class="card-img-wrap">
+            <div class="card-meta-bar">
+              <span class="card-pill-tag">Python • MySQL • dbt • Power BI • DAX</span>
+              <a href="https://github.com/KalamallaVasista/B2B-Fraud-Risk-Engine" target="_blank" class="card-arrow-btn">↗</a>
+            </div>
+            <img src="images/dashboard-fraud-risk.jpg?v=2" alt="B2B Payment Fraud & Chargeback Command Center" loading="lazy">
+          </div>
+          <div class="card-body">
+            <div>
+              <h3 class="card-title">B2B Payment Fraud & Chargeback Command Center</h3>
+              <p class="card-desc">
+                An end-to-end payment risk system engineering synthetic transactional logs, modeling staging-to-fact data via dbt, and implementing dynamic threshold recalculations.
+              </p>
+              <ul class="card-bullets">
+                <li>Engineered 50,000 synthetic B2B transaction records in Python with fraud flags and simulated AI risk scores.</li>
+                <li>Built a MySQL data warehouse and transformed staging data into a production-ready fraud monitoring fact table using dbt (ELT).</li>
+                <li>Developed an interactive Power BI dashboard with a What-If threshold parameter (DAX: CALCULATE, FILTER) that instantly recalculates Revenue Lost and False Positive Rate KPIs.</li>
+                <li>Implemented a Customer Recovery Queue for manual review of flagged transactions, helping risk teams recover legitimate revenue.</li>
+              </ul>
+            </div>
+            <div class="card-foot-tags">
+              <span class="foot-tag">dbt (ELT)</span>
+              <span class="foot-tag">Power BI & DAX</span>
+              <span class="foot-tag">MySQL Warehouse</span>
+              <span class="foot-tag">Python Simulation</span>
+            </div>
+            <a href="https://github.com/KalamallaVasista/B2B-Fraud-Risk-Engine" target="_blank" class="github-link-btn">
+              View Repository on GitHub →
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="featured-card">
+          <div class="card-img-wrap">
+            <div class="card-meta-bar">
+              <span class="card-pill-tag">SQL • dbt • Power BI • Synthetic Data</span>
+              <a href="https://github.com/KalamallaVasista/Revenue-Recovery-Engine" target="_blank" class="card-arrow-btn">↗</a>
+            </div>
+            <img src="images/dashboard-churn-recovery.jpg?v=2" alt="Revenue Recovery & Churn Risk Engine" loading="lazy">
+          </div>
+          <div class="card-body">
+            <div>
+              <h3 class="card-title">Revenue Recovery & Churn Risk Engine</h3>
+              <p class="card-desc">
+                A proactive SaaS analytics framework modeling customer lifecycles, identifying sudden usage drop-offs, and calculating transparent rule-based churn risk scores.
+              </p>
+              <ul class="card-bullets">
+                <li>Engineered a synthetic B2B SaaS dataset with healthy usage and sudden drop-offs to simulate realistic customer lifecycles.</li>
+                <li>Designed a transparent, rule-based churn risk score in SQL and dbt that flags deviations from each customer's baseline, such as declining transaction volume and delayed payments.</li>
+                <li>Modeled customer dimension and payment fact tables in dbt to support reusable, modular churn analysis.</li>
+                <li>Delivered a Power BI dashboard that segments customers by risk, with a daily Risk Roster showing why each account was flagged.</li>
+              </ul>
+            </div>
+            <div class="card-foot-tags">
+              <span class="foot-tag">Churn Risk Scoring</span>
+              <span class="foot-tag">Dimensional Modeling</span>
+              <span class="foot-tag">dbt Pipelines</span>
+              <span class="foot-tag">Power BI Roster</span>
+            </div>
+            <a href="https://github.com/KalamallaVasista/Revenue-Recovery-Engine" target="_blank" class="github-link-btn">
+              View Repository on GitHub →
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 3: TECHNICAL SKILLS MATRIX
+       ============================================================ -->
+  <section class="archive-section">
+    <div class="container">
+      <div class="archive-filter-row">
+        <div>
+          <span class="section-num-tag">// 02 TECHNICAL SKILLS MATRIX</span>
+          <h2 class="section-main-heading">Core Competencies & Tooling</h2>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="filter-tabs">
+          <button class="filter-btn active" data-filter="all">All Skills</button>
+          <button class="filter-btn" data-filter="bi">BI & Visualization</button>
+          <button class="filter-btn" data-filter="sql">SQL & Modeling</button>
+          <button class="filter-btn" data-filter="python">Python & Stats</button>
+        </div>
+      </div>
+
+      <div class="archive-grid">
+        <!-- Skill 1 -->
+        <div class="archive-card" data-category="bi">
+          <div class="archive-card-body">
+            <div class="archive-card-meta">
+              <span>BI & Reporting</span>
+              <span>Primary</span>
+            </div>
+            <h4 class="archive-card-title">Power BI, DAX & Tableau</h4>
+            <p class="archive-card-sub">Interactive executive dashboards, What-If parameters, CALCULATE/FILTER logic, and visual KPI storytelling.</p>
+            <div class="skill-pills-wrap">
+              <span class="skill-tag">Power BI</span>
+              <span class="skill-tag">DAX Measures</span>
+              <span class="skill-tag">Tableau</span>
+              <span class="skill-tag">Excel (XLOOKUP / Power Query)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skill 2 -->
+        <div class="archive-card" data-category="sql">
+          <div class="archive-card-body">
+            <div class="archive-card-meta">
+              <span>Databases</span>
+              <span>Core</span>
+            </div>
+            <h4 class="archive-card-title">SQL, MySQL & Querying</h4>
+            <p class="archive-card-sub">Complex joins, subqueries, CTEs, window functions, aggregate analytics, and performance-tuned querying.</p>
+            <div class="skill-pills-wrap">
+              <span class="skill-tag">Window Functions</span>
+              <span class="skill-tag">CTEs & Subqueries</span>
+              <span class="skill-tag">MySQL</span>
+              <span class="skill-tag">Data Wrangling</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skill 3 -->
+        <div class="archive-card" data-category="sql">
+          <div class="archive-card-body">
+            <div class="archive-card-meta">
+              <span>Data Engineering</span>
+              <span>ELT</span>
+            </div>
+            <h4 class="archive-card-title">dbt & Dimensional Modeling</h4>
+            <p class="archive-card-sub">Data warehousing concepts, star schema design, staging-to-fact ELT transformations, and automated testing.</p>
+            <div class="skill-pills-wrap">
+              <span class="skill-tag">dbt (Data Build Tool)</span>
+              <span class="skill-tag">Fact & Dimension Tables</span>
+              <span class="skill-tag">Data Cleaning</span>
+              <span class="skill-tag">ETL/ELT</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Skill 4 -->
+        <div class="archive-card" data-category="python">
+          <div class="archive-card-body">
+            <div class="archive-card-meta">
+              <span>Analytics & ML</span>
+              <span>Scripting</span>
+            </div>
+            <h4 class="archive-card-title">Python, Pandas & Stats</h4>
+            <p class="archive-card-sub">Exploratory data analysis (EDA), synthetic dataset simulation, hypothesis testing, A/B testing, and scikit-learn ML.</p>
+            <div class="skill-pills-wrap">
+              <span class="skill-tag">Pandas & NumPy</span>
+              <span class="skill-tag">Matplotlib / Seaborn</span>
+              <span class="skill-tag">Scikit-learn</span>
+              <span class="skill-tag">Hypothesis Testing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 4: EDUCATION & CERTIFICATIONS
+       ============================================================ -->
+  <section class="impact-section">
+    <div class="container">
+      <div class="section-header-row">
+        <div>
+          <span class="section-num-tag">// 03 EDUCATION & CERTIFICATIONS</span>
+          <h2 class="section-main-heading">Academic Rigor & Verified Credentials</h2>
+        </div>
+      </div>
+
+      <div class="impact-grid">
+        <!-- Education Card -->
+        <div class="impact-card">
+          <div>
+            <div class="impact-stat-highlight">8.9 CGPA</div>
+            <h4>B.Tech in Computer Science & Engineering (AI/ML)</h4>
+            <p class="impact-quote">
+              Alliance University, Bangalore, India (2022 - 2026). In-depth coursework in machine learning, database management systems, data structures, and algorithms.
+            </p>
+          </div>
+          <div class="impact-author">
+            <div class="author-info">
+              <h5>Alliance University</h5>
+              <span>Bangalore, India • 2022 - 2026</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Certification 1 -->
+        <div class="impact-card">
+          <div>
+            <div class="impact-stat-highlight">IBM</div>
+            <h4>Business Intelligence (BI) Essentials</h4>
+            <p class="impact-quote">
+              Issued by IBM via Coursera (2025). Certified in BI reporting architecture, data warehousing fundamentals, and executive dashboard design.
+            </p>
+          </div>
+          <div class="impact-author">
+            <div class="author-info">
+              <h5>Coursera Verified</h5>
+              <a href="https://coursera.org/verify/9DSL6Z9RXMUA" target="_blank" class="verify-badge">Verify Credential: 9DSL6Z9RXMUA ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Certification 2 & 3 -->
+        <div class="impact-card">
+          <div>
+            <div class="impact-stat-highlight">CFI & IBM</div>
+            <h4>Power BI Fundamentals & ML with Python</h4>
+            <p class="impact-quote">
+              Corporate Finance Institute (2025) & IBM Machine Learning with Python (2024). Mastering financial modeling, DAX, and predictive analytics.
+            </p>
+          </div>
+          <div class="impact-author">
+            <div class="author-info">
+              <h5>Coursera & CFI Verified</h5>
+              <a href="https://coursera.org/verify/E86CZLBA7KC0" target="_blank" class="verify-badge">CFI Power BI: E86CZLBA7KC0 ↗</a><br>
+              <a href="https://coursera.org/verify/HQLLMW82ULW8" target="_blank" class="verify-badge">IBM ML: HQLLMW82ULW8 ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer>
+    <div class="container">
+      <div class="footer-cta-box">
+        <h2 class="footer-cta-title">
+          Looking for a Data Analyst<br>Who Delivers Business Impact?
+        </h2>
+        <a href="index.html#contact" class="btn-nav" style="padding: 10px 10px 10px 28px; font-size: 1.05rem;">
+          Get in touch
+          <span class="arrow-circle" style="width: 38px; height: 38px; font-size: 1.1rem;">→</span>
+        </a>
+      </div>
+
+      <div class="footer-links-row">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">K Vasista Kumar Reddy</a>
+          <p>Data Analyst • SQL, Power BI, DAX, dbt & Python • Bangalore, India</p>
+          <p style="color: var(--primary-orange); font-size: 0.85rem; margin-top: 4px;">
+            kalamallavasi@gmail.com • +91 7981182480
+          </p>
+        </div>
+
+        <ul class="footer-nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="https://github.com/KalamallaVasista" target="_blank">GitHub</a></li>
+          <li><a href="https://linkedin.com/in/vasistakumar" target="_blank">LinkedIn</a></li>
+        </ul>
+
+        <div class="footer-socials">
+          <a href="https://github.com/KalamallaVasista" target="_blank" class="social-pill">GitHub</a>
+          <a href="https://linkedin.com/in/vasistakumar" target="_blank" class="social-pill">LinkedIn</a>
+          <a href="mailto:kalamallavasi@gmail.com" class="social-pill">Email</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        © 2026 K Vasista Kumar Reddy. All rights reserved. Crafted with precision.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interactive Filter Logic -->
+  <script>
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const archiveCards = document.querySelectorAll('.archive-card');
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.getAttribute('data-filter');
+
+        archiveCards.forEach(card => {
+          if (filter === 'all' || card.getAttribute('data-category') === filter) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
